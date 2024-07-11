@@ -66,10 +66,10 @@ def visualize_cosume_res_single(consume_list, totals_cost, start_date, end_date)
 
 
 # Function that graphs consumption by category.
-def visualize_consume_res_by_category(consume_type_info_list):
+def visualize_consume_res_by_category(category_labels, category_size_labels):
 
-    category_labels = [consume_type_info.keyword_type for consume_type_info in consume_type_info_list]
-    category_size_labels = [consume_type_info.keyword_cost for consume_type_info in consume_type_info_list]
+    #category_labels = [consume_type_info.keyword_type for consume_type_info in consume_type_info_list]
+    #category_size_labels = [consume_type_info.keyword_cost for consume_type_info in consume_type_info_list]
 
     draw_circle_graph(category_size_labels, category_labels, False, 140, './data/img/category_plot.png')
 
