@@ -66,17 +66,17 @@ def visualize_cosume_res_single(consume_list, totals_cost, start_date, end_date)
 
 
 # Function that graphs consumption by category.
-def visualize_consume_res_by_category(category_labels, category_size_labels):
+def visualize_consume_res_by_category(category_labels, category_size_labels, start_dt, end_date, total_cost, file_name):
 
     #category_labels = [consume_type_info.keyword_type for consume_type_info in consume_type_info_list]
     #category_size_labels = [consume_type_info.keyword_cost for consume_type_info in consume_type_info_list]
-
-    draw_circle_graph(category_size_labels, category_labels, False, 140, './data/img/category_plot.png')
+    # './data/img/category_plot.png'
+    draw_circle_graph(category_size_labels, category_labels, False, 140, start_dt, end_date, total_cost, file_name)
 
 
 
 # Function that draws a circle graph
-def draw_circle_graph(category_size_labels, category_labels, shadow, startangle, save_fig):
+def draw_circle_graph(category_size_labels, category_labels, shadow, startangle, start_dt, end_date, total_cost, save_fig):
 
     # Dynamic Color Array Generation
     colors = plt.cm.viridis(np.linspace(0, 1, len(category_size_labels)))   
@@ -84,6 +84,9 @@ def draw_circle_graph(category_size_labels, category_labels, shadow, startangle,
     plt.figure(figsize=(8, 8))  # Specify graph size
     plt.pie(category_size_labels, labels=category_labels, colors=colors, autopct='%1.1f%%', shadow=shadow, startangle=startangle)
     plt.axis('equal')
+    
+    plt.suptitle("[" + start_dt + " ~ " + end_date + "]", fontsize=16)  # Main title
+    plt.title("Total Cost: " + f'{int(total_cost):,}', fontsize=10, color='black', loc='center', pad=20)  # Subtitle with smaller font and gray color
     
     # Save Graphs
     plt.savefig(save_fig)

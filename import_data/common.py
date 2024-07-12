@@ -10,6 +10,7 @@ import time
 from dateutil import parser
 from dateutil.relativedelta import relativedelta
 import os
+import uuid
 from dotenv import load_dotenv
 import matplotlib
 matplotlib.use('Agg')

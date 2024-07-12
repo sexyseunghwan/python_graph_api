@@ -10,19 +10,20 @@ plt.rc('font', family=font_prop)
 
 app = Flask(__name__)
 
-@app.route('/api/data', methods=['POST'])
+@app.route('/api/category', methods=['POST'])
 def run_app():
     
     data = request.get_json()
     
-    print(data)
     category_labels = data["title_vec"]
     category_size_labels = data["cost_vec"]
-
-    visualize_consume_res_by_category(category_labels, category_size_labels)
-    #print(data["title_vec"])
-    #print(data[""])
-
-    global_logger.info("Python Telegram Bot Stop")
-
-    return jsonify(data), 200
+    start_dt = data["start_dt"]
+    end_dt = data["end_dt"]
+    total_cost = data["total_cost"]
+    
+    file_uuid = '/Users/we/Documents/work_code/consume_alert_rust/consume_alert_rust/data/pngs' + str(uuid.uuid4()) + ".png"
+    
+    visualize_consume_res_by_category(category_labels, category_size_labels, start_dt, end_dt, total_cost, file_uuid)
+    
+    # jsonify
+    return file_uuid, 200
