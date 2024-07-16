@@ -100,7 +100,7 @@ def thousands_formatter(x, pos):
 
 
 # Function that draws a graph
-def draw_line_graph(plt, title, x_label, y_label, save_fig):
+def draw_line_graph(plt, title, x_label, y_label, file_uuid):
 
     # y-axis label formatting
     formatter = FuncFormatter(thousands_formatter)
@@ -111,12 +111,12 @@ def draw_line_graph(plt, title, x_label, y_label, save_fig):
     plt.ylabel(y_label)  
 
     plt.legend()
-    plt.savefig(save_fig)  
+    plt.savefig(file_uuid)  
     plt.close()      
 
 
 # Function that plots a graph of two consumption trends
-def draw_line_graph_dual(consume_info_1, consume_info_2):
+def draw_line_graph_dual(consume_info_1, consume_info_2, file_uuid):
     
     longer_len = 0
 
@@ -143,7 +143,7 @@ def draw_line_graph_dual(consume_info_1, consume_info_2):
     plt.plot(x, consume_info_2.consume_res_list, color='black', label="[{} ~ {}]".format(consume_info_2.start_date, consume_info_2.end_date))
 
     draw_line_graph(plt, "[{} ~ {}] {} won".format(consume_info_1.start_date, consume_info_1.end_date, consume_info_1.totals_cost), 'Date', 'Consume Cost', './data/img/plot.png')
-
+    
 
 
 # Function that plots a graph of a consumption trend
