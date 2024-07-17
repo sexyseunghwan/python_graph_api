@@ -14,55 +14,55 @@ class ConsumeInfoDict:
 
 
 # Function that objectifies data on consumption trends
-def parsing_consume_object(totals_cost, start_date, end_date, consume_list):
+# def parsing_consume_object(totals_cost, start_date, end_date, consume_list):
 
-    order_dict = OrderedDict()
-    consume_res_list = []
-    current_date = start_date
+#     order_dict = OrderedDict()
+#     consume_res_list = []
+#     current_date = start_date
 
-    while current_date <= end_date:
-        order_dict[current_date.strftime('%Y-%m-%d')] = 0
-        current_date += timedelta(days=1)
+#     while current_date <= end_date:
+#         order_dict[current_date.strftime('%Y-%m-%d')] = 0
+#         current_date += timedelta(days=1)
 
-    for elem in consume_list:
+#     for elem in consume_list:
         
-        elem_date = elem.date 
-        elem_cost = elem.cost 
+#         elem_date = elem.date 
+#         elem_cost = elem.cost 
         
-        # parsing into datetime objects
-        dt = datetime.fromisoformat(elem_date.rstrip('Z'))
+#         # parsing into datetime objects
+#         dt = datetime.fromisoformat(elem_date.rstrip('Z'))
 
-        # Extract date in year-month-day format
-        date_only = dt.date().isoformat()
+#         # Extract date in year-month-day format
+#         date_only = dt.date().isoformat()
         
-        order_dict[date_only] += elem_cost
+#         order_dict[date_only] += elem_cost
         
-    total_consume = 0
+#     total_consume = 0
 
-    for date, total_cost in order_dict.items():
-        total_consume += total_cost
-        consume_res_list.append(total_consume)
+#     for date, total_cost in order_dict.items():
+#         total_consume += total_cost
+#         consume_res_list.append(total_consume)
 
-    consume_info = ConsumeInfoDict(totals_cost, start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'), consume_res_list)
+#     consume_info = ConsumeInfoDict(totals_cost, start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'), consume_res_list)
     
-    return consume_info
+#     return consume_info
 
 
 # Function that visualizes two consumption trends
-def visualize_cosume_res_dual(consume_list, totals_cost, start_date, end_date, consume_pre_list, totals_pre_cost, pre_start_date, pre_end_date):
+# def visualize_cosume_res_dual(consume_list, totals_cost, start_date, end_date, consume_pre_list, totals_pre_cost, pre_start_date, pre_end_date):
     
-    consume_info = parsing_consume_object(totals_cost, start_date, end_date, consume_list)
-    consume_info_pre = parsing_consume_object(totals_pre_cost, pre_start_date, pre_end_date, consume_pre_list)
+#     consume_info = parsing_consume_object(totals_cost, start_date, end_date, consume_list)
+#     consume_info_pre = parsing_consume_object(totals_pre_cost, pre_start_date, pre_end_date, consume_pre_list)
     
-    draw_line_graph_dual(consume_info, consume_info_pre)
+#     draw_line_graph_dual(consume_info, consume_info_pre)
 
 
 # Function that visualizes consumption trends
-def visualize_cosume_res_single(consume_list, totals_cost, start_date, end_date):
+# def visualize_cosume_res_single(consume_list, totals_cost, start_date, end_date):
     
-    consume_info = parsing_consume_object(totals_cost, start_date, end_date, consume_list)
+#     consume_info = parsing_consume_object(totals_cost, start_date, end_date, consume_list)
     
-    draw_graph_single(consume_info)
+#     draw_line_graph_single(consume_info)
 
 
 # Function that graphs consumption by category.
@@ -142,12 +142,12 @@ def draw_line_graph_dual(consume_info_1, consume_info_2, file_uuid):
     plt.plot(x, consume_info_1.consume_res_list, color='red', label="[{} ~ {}]".format(consume_info_1.start_date, consume_info_1.end_date))
     plt.plot(x, consume_info_2.consume_res_list, color='black', label="[{} ~ {}]".format(consume_info_2.start_date, consume_info_2.end_date))
 
-    draw_line_graph(plt, "[{} ~ {}] {} won".format(consume_info_1.start_date, consume_info_1.end_date, consume_info_1.totals_cost), 'Date', 'Consume Cost', './data/img/plot.png')
+    draw_line_graph(plt, "[{} ~ {}] {} won".format(consume_info_1.start_date, consume_info_1.end_date, consume_info_1.totals_cost), 'Date', 'Consume Cost', file_uuid)
     
 
 
 # Function that plots a graph of a consumption trend
-def draw_graph_single(consume_info):
+def draw_line_graph_single(consume_info):
     
     consume_info_len = len(consume_info.consume_res_list)
     
