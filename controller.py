@@ -23,8 +23,8 @@ def category_app():
         end_dt = data["end_dt"]
         total_cost = data["total_cost"]
         
-        #file_uuid = '/Users/we/Documents/work_code/consume_alert_rust/consume_alert_rust/data/pngs/' + str(uuid.uuid4()) + ".png"
-        file_uuid = '/Users/sinseunghwan/Documents/work_code/consume_alert_rust/consume_alert_rust/data/images/' + str(uuid.uuid4()) + ".png"
+        file_uuid = '/Users/we/Documents/work_code/consume_alert_rust/consume_alert_rust/data/pngs/' + str(uuid.uuid4()) + ".png"
+        #file_uuid = '/Users/sinseunghwan/Documents/work_code/consume_alert_rust/consume_alert_rust/data/images/' + str(uuid.uuid4()) + ".png"
 
         visualize_consume_res_by_category(category_labels, category_size_labels, start_dt, end_dt, total_cost, file_uuid)
         
@@ -55,8 +55,8 @@ def consume_detail_double_app():
             else:
                 pre_consume_info = consume_info_dict
 
-        #file_uuid = '/Users/we/Documents/work_code/consume_alert_rust/consume_alert_rust/data/pngs/' + str(uuid.uuid4()) + ".png"
-        file_uuid = '/Users/sinseunghwan/Documents/work_code/consume_alert_rust/consume_alert_rust/data/images/' + str(uuid.uuid4()) + ".png"
+        file_uuid = '/Users/we/Documents/work_code/consume_alert_rust/consume_alert_rust/data/pngs/' + str(uuid.uuid4()) + ".png"
+        #file_uuid = '/Users/sinseunghwan/Documents/work_code/consume_alert_rust/consume_alert_rust/data/images/' + str(uuid.uuid4()) + ".png"
 
         if pre_consume_info == None:
             draw_line_graph_single(cur_consume_info, file_uuid)
