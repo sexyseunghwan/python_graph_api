@@ -147,7 +147,7 @@ def draw_line_graph_dual(consume_info_1, consume_info_2, file_uuid):
 
 
 # Function that plots a graph of a consumption trend
-def draw_line_graph_single(consume_info):
+def draw_line_graph_single(consume_info, file_uuid):
     
     consume_info_len = len(consume_info.consume_res_list)
     
@@ -157,4 +157,4 @@ def draw_line_graph_single(consume_info):
     plt.figure(figsize=(10,7))
     plt.plot(x, consume_info.consume_res_list, color='red', label="[{} ~ {}]".format(consume_info.start_date, consume_info.end_date))
 
-    draw_line_graph(plt, "[{} ~ {}] {} won".format(consume_info.start_date, consume_info.end_date, consume_info.totals_cost), 'Date', 'Consume Cost', './data/img/plot.png')
+    draw_line_graph(plt, "[{} ~ {}] {} won".format(consume_info.start_date, consume_info.end_date, consume_info.totals_cost), 'Date', 'Consume Cost', file_uuid)
