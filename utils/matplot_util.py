@@ -142,7 +142,7 @@ def draw_line_graph_dual(consume_info_1, consume_info_2, file_uuid):
     plt.plot(x, consume_info_1.consume_res_list, color='red', label="[{} ~ {}]".format(consume_info_1.start_date, consume_info_1.end_date))
     plt.plot(x, consume_info_2.consume_res_list, color='black', label="[{} ~ {}]".format(consume_info_2.start_date, consume_info_2.end_date))
 
-    draw_line_graph(plt, "[{} ~ {}] {} won".format(consume_info_1.start_date, consume_info_1.end_date, consume_info_1.totals_cost), 'Date', 'Consume Cost', file_uuid)
+    draw_line_graph(plt, "[{} ~ {}] {:,} won".format(consume_info_1.start_date, consume_info_1.end_date, int(consume_info_1.totals_cost)), 'Date', 'Consume Cost', file_uuid)
     
 
 
@@ -157,4 +157,4 @@ def draw_line_graph_single(consume_info, file_uuid):
     plt.figure(figsize=(10,7))
     plt.plot(x, consume_info.consume_res_list, color='red', label="[{} ~ {}]".format(consume_info.start_date, consume_info.end_date))
 
-    draw_line_graph(plt, "[{} ~ {}] {} won".format(consume_info.start_date, consume_info.end_date, consume_info.totals_cost), 'Date', 'Consume Cost', file_uuid)
+    draw_line_graph(plt, "[{} ~ {}] {:,} won".format(consume_info.start_date, consume_info.end_date, int(consume_info.totals_cost)), 'Date', 'Consume Cost', file_uuid)

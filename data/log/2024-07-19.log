@@ -1,5 +1,0 @@
-[ 2024-07-19 00:28:46,564 ] ERROR : draw_line_graph_single() takes 1 positional argument but 2 were given
-Traceback (most recent call last):
-  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/controller.py", line 62, in consume_detail_double_app
-    draw_line_graph_single(cur_consume_info, file_uuid)
-TypeError: draw_line_graph_single() takes 1 positional argument but 2 were given
