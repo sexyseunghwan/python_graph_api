@@ -18,5 +18,6 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 from collections import OrderedDict
 from matplotlib import font_manager, rc
+import matplotlib.ticker as ticker
 import numpy as np
 from flask import Flask, request, jsonify

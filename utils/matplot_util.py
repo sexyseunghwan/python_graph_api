@@ -106,6 +106,9 @@ def draw_line_graph(plt, title, x_label, y_label, file_uuid):
     formatter = FuncFormatter(thousands_formatter)
     plt.gca().yaxis.set_major_formatter(formatter)
     
+    # Set the x-axis to display integers only (not floats)
+    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+
     plt.title(title)
     plt.xlabel(x_label)
     plt.ylabel(y_label)  
@@ -137,6 +140,8 @@ def draw_line_graph_dual(consume_info_1, consume_info_2, file_uuid):
     
     x = [i+1 for i in range(longer_len)]
     
+    print(x)
+
     # Create Graphs
     plt.figure(figsize=(10,7))
     plt.plot(x, consume_info_1.consume_res_list, color='red', label="[{} ~ {}]".format(consume_info_1.start_date, consume_info_1.end_date))
