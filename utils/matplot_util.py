@@ -140,13 +140,11 @@ def draw_line_graph_dual(consume_info_1, consume_info_2, file_uuid):
     
     x = [i+1 for i in range(longer_len)]
     
-    print(x)
-
     # Create Graphs
     plt.figure(figsize=(10,7))
     plt.plot(x, consume_info_1.consume_res_list, color='red', label="[{} ~ {}]".format(consume_info_1.start_date, consume_info_1.end_date))
     plt.plot(x, consume_info_2.consume_res_list, color='black', label="[{} ~ {}]".format(consume_info_2.start_date, consume_info_2.end_date))
-
+    
     draw_line_graph(plt, "[{} ~ {}] {:,} won".format(consume_info_1.start_date, consume_info_1.end_date, int(consume_info_1.totals_cost)), 'Date', 'Consume Cost', file_uuid)
     
 
