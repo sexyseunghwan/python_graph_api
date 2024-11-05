@@ -4,14 +4,44 @@ from import_data import *
 from config import global_logger
 
 
-# Graph related font settings. - Globally set.
+""" 
+Graph related font settings. - Globally set.
+"""
 font_prop = font_manager.FontProperties(fname="./data/font/BMDOHYEON_ttf.ttf").get_name()
 plt.rc('font', family=font_prop)
 
-# Flask settings
+
+"""
+Flask settings
+"""
 app = Flask(__name__)
 
-# 
+
+"""
+TEST API
+"""
+@app.route('/api/test', methods=['GET'])
+def test_app():
+
+    try:
+        
+        data = request.get_json()
+        test = data["test"]
+
+        global_logger.info("test")
+        print(test)
+        
+
+        return "test", 200
+
+    except Exception as e:
+        global_logger.error(str(e), exc_info=True)
+        return jsonify({'error': 'An error occurred: {}'.format(str(e))}), 500
+
+
+"""
+Functions to draw consumption history category graphs
+"""
 @app.route('/api/category', methods=['POST'])
 def category_app():
     
@@ -26,7 +56,6 @@ def category_app():
         
         file_path = os.getenv('FILE_PATH')
         file_uuid = file_path + str(uuid.uuid4()) + ".png"
-        # file_uuid = '/home/seunghwan/Documents/consume_alert_rust/consume_alert_rust/data/images/' + str(uuid.uuid4()) + ".png"
         visualize_consume_res_by_category(category_labels, category_size_labels, start_dt, end_dt, total_cost, file_uuid)
         
         # jsonify
@@ -35,8 +64,11 @@ def category_app():
     except Exception as e:
         global_logger.error(str(e), exc_info=True)
         return jsonify({'error': 'An error occurred: {}'.format(str(e))}), 500
-    
-# 
+
+
+"""
+Function to draw consumption details graph
+"""
 @app.route('/api/consume_detail', methods=['POST'])
 def consume_detail_double_app():
     
@@ -58,8 +90,6 @@ def consume_detail_double_app():
 
         file_path = os.getenv('FILE_PATH')
         file_uuid = file_path + str(uuid.uuid4()) + ".png"
-        # file_uuid = '/Users/sinseunghwan/Documents/work_code/consume_alert_rust/consume_alert_rust/data/images/' + str(uuid.uuid4()) + ".png"
-        # file_uuid = '/home/seunghwan/Documents/consume_alert_rust/consume_alert_rust/data/images/' + str(uuid.uuid4()) + ".png"s
         
         if pre_consume_info == None:
             draw_line_graph_single(cur_consume_info, file_uuid)
