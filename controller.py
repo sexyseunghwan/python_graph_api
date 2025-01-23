@@ -65,7 +65,6 @@ def category_app():
         global_logger.error(str(e), exc_info=True)
         return jsonify({'error': 'An error occurred: {}'.format(str(e))}), 500
 
-
 """
 Function to draw consumption details graph
 """
@@ -78,6 +77,13 @@ def consume_detail_double_app():
         cur_consume_info = None
         pre_consume_info = None
         
+        # If the size of the vector data passed to the post exceeds 2
+        if len(data) > 2:
+            error_msg = "The size of the vector cannot exceed two."
+            global_logger.error(str(error_msg), exc_info=True)
+            return jsonify({'error': 'An error occurred: {}'.format(str(error_msg))}), 500
+        
+
         for elem in data:
             
             line_type = elem['line_type']
