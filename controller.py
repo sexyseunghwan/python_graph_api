@@ -48,8 +48,8 @@ def category_app():
     try:
         data = request.get_json()
         
-        category_labels = data["title_vec"]
-        category_size_labels = data["cost_vec"]
+        category_labels = data["prodt_type_vec"]
+        category_size_labels = data["prodt_type_cost_per_vec"]
         start_dt = data["start_dt"]
         end_dt = data["end_dt"]
         total_cost = data["total_cost"]
@@ -60,7 +60,7 @@ def category_app():
         
         # jsonify
         return file_uuid, 200
-    
+        
     except Exception as e:
         global_logger.error(str(e), exc_info=True)
         return jsonify({'error': 'An error occurred: {}'.format(str(e))}), 500
