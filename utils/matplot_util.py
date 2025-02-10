@@ -77,24 +77,68 @@ Function that plots a graph of two consumption trends
 """
 def draw_line_graph_dual(consume_info_1, consume_info_2, file_uuid):
     
-    longer_len = 0
+    len_1 = len(consume_info_1.consume_res_list)
+    len_2 = len(consume_info_2.consume_res_list)
 
-    consume_info_1_len = len(consume_info_1.consume_res_list)
-    consume_info_2_len = len(consume_info_2.consume_res_list)
-
-    if consume_info_1_len != consume_info_2_len:
-        # Determine the shorter list and the gap in length
-        shorter_info = consume_info_1 if consume_info_1_len < consume_info_2_len else consume_info_2
-        longer_len = max(consume_info_1_len, consume_info_2_len)
-        gap = longer_len - len(shorter_info.consume_res_list)
-        
-        # Append the last element of the shorter list to itself until lengths match
-        last_element = shorter_info.consume_res_list[-1]
-        shorter_info.consume_res_list.extend([last_element] * gap)
-    else:
-        longer_len = consume_info_1_len
+    # 둘 다 비어 있으면 기본 값 추가
+    if len_1 == 0 and len_2 == 0:
+        consume_info_1.consume_res_list.append(0)
+        consume_info_2.consume_res_list.append(0)
     
-    x = [i+1 for i in range(longer_len)]
+    # 길이가 다르면 짧은 리스트를 확장
+    elif len_1 != len_2:
+        shorter, longer = (consume_info_1, consume_info_2) if len_1 < len_2 else (consume_info_2, consume_info_1)
+        gap = len(longer.consume_res_list) - len(shorter.consume_res_list)
+        last_element = shorter.consume_res_list[-1] if shorter.consume_res_list else 0
+        shorter.consume_res_list.extend([last_element] * gap)
+    
+    longer_len = max(len_1, len_2, 1)
+    
+    # 리스트 길이에 따라 x 값 설정
+    x = list(range(1, longer_len + 1))
+    
+    # 길이가 1이면 요소 추가
+    if longer_len == 1:
+        consume_info_1.consume_res_list.append(consume_info_1.consume_res_list[-1])
+        consume_info_2.consume_res_list.append(consume_info_2.consume_res_list[-1])
+        x.append(2)
+    
+
+    # longer_len = 0
+
+    # consume_info_1_len = len(consume_info_1.consume_res_list)
+    # consume_info_2_len = len(consume_info_2.consume_res_list)
+    
+    # if consume_info_1_len == consume_info_2_len:
+        
+    #     if consume_info_1_len == 0:
+    #         # If both lists are empty
+    #         for _i in range(0,1):
+    #             consume_info_1.consume_res_list.append(0)
+    #             consume_info_2.consume_res_list.append(0)
+    #     else:
+    #         longer_len = consume_info_1_len
+        
+    # else:
+    #     # Determine the shorter list and the gap in length
+    #     shorter_info = consume_info_1 if consume_info_1_len < consume_info_2_len else consume_info_2
+    #     longer_len = max(consume_info_1_len, consume_info_2_len)
+    #     gap = longer_len - len(shorter_info.consume_res_list)
+
+    #     # Append the last element of the shorter list to itself until lengths match
+    #     if len(shorter_info.consume_res_list) == 0:
+    #         last_element = 0
+    #     else:
+    #         last_element = shorter_info.consume_res_list[-1]
+
+    #     shorter_info.consume_res_list.extend([last_element] * gap)
+        
+    # if longer_len > 1:
+    #     x = [i+1 for i in range(longer_len)]
+    # else:
+    #     consume_info_1.consume_res_list.append(consume_info_1.consume_res_list[-1])
+    #     consume_info_2.consume_res_list.append(consume_info_2.consume_res_list[-1])
+    #     x = [i+1 for i in range(0,2)]
     
     # Create Graphs
     plt.figure(figsize=(10,7))
@@ -102,8 +146,7 @@ def draw_line_graph_dual(consume_info_1, consume_info_2, file_uuid):
     plt.plot(x, consume_info_2.consume_res_list, color='black', label="[{} ~ {}]".format(consume_info_2.start_date, consume_info_2.end_date))
     
     draw_line_graph(plt, "[{} ~ {}] {:,} won".format(consume_info_1.start_date, consume_info_1.end_date, int(consume_info_1.totals_cost)), 'Date', 'Consume Cost', file_uuid)
-    
-
+   
 
 """
 Function that plots a graph of a consumption trend

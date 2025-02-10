@@ -1,0 +1,48 @@
+[ 2025-02-10 22:08:17,901 ] ERROR : list index out of range
+Traceback (most recent call last):
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/controller.py", line 103, in consume_detail_double_app
+    draw_line_graph_dual(cur_consume_info, pre_consume_info, file_uuid)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/utils/matplot_util.py", line 95, in draw_line_graph_dual
+    last_element = shorter_info.consume_res_list[-1]
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+IndexError: list index out of range
+[ 2025-02-10 22:16:02,424 ] ERROR : x and y must have same first dimension, but have shapes (2,) and (1,)
+Traceback (most recent call last):
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/controller.py", line 103, in consume_detail_double_app
+    draw_line_graph_dual(cur_consume_info, pre_consume_info, file_uuid)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/utils/matplot_util.py", line 108, in draw_line_graph_dual
+    plt.plot(x, consume_info_1.consume_res_list, color='red', label="[{} ~ {}]".format(consume_info_1.start_date, consume_info_1.end_date))
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/venv/lib/python3.13/site-packages/matplotlib/pyplot.py", line 3794, in plot
+    return gca().plot(
+           ~~~~~~~~~~^
+        *args,
+        ^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/venv/lib/python3.13/site-packages/matplotlib/axes/_axes.py", line 1779, in plot
+    lines = [*self._get_lines(self, *args, data=data, **kwargs)]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/venv/lib/python3.13/site-packages/matplotlib/axes/_base.py", line 296, in __call__
+    yield from self._plot_args(
+               ~~~~~~~~~~~~~~~^
+        axes, this, kwargs, ambiguous_fmt_datakey=ambiguous_fmt_datakey)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/venv/lib/python3.13/site-packages/matplotlib/axes/_base.py", line 486, in _plot_args
+    raise ValueError(f"x and y must have same first dimension, but "
+                     f"have shapes {x.shape} and {y.shape}")
+ValueError: x and y must have same first dimension, but have shapes (2,) and (1,)
+[ 2025-02-10 23:03:50,075 ] ERROR : list index out of range
+Traceback (most recent call last):
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/controller.py", line 103, in consume_detail_double_app
+    draw_line_graph_dual(cur_consume_info, pre_consume_info, file_uuid)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sinseunghwan/Documents/work_code/python_graph_api/utils/matplot_util.py", line 104, in draw_line_graph_dual
+    consume_info_1.consume_res_list.append(consume_info_1.consume_res_list[-1])
+                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+IndexError: list index out of range
