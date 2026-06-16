@@ -1,31 +1,31 @@
-from import_data.common import *
+import logging
+import logging.handlers
+from datetime import datetime
 
-"""
-Function that records the log - initiate logger
-"""
-def setup_logging(log_inst_name):
-    
-    logger = logging.getLogger(log_inst_name)
-    
-    """
-    If there is a logger handler corresponding to the name passed as a parameter, 
-    Delete the logger and then create a new handler.   
-    """
+
+def setup_logging(name: str) -> logging.Logger:
+    logger = logging.getLogger(name)
+    logger.propagate = False
+
     if logger.hasHandlers():
-        
-        for handler in logger.handlers[:]:    
-            """
-            After checking whether it is a FileHandler object or a TimedRotatingFileHandler object, if either type is correct, DELETE the handler.
-            """
-            if isinstance(handler, logging.FileHandler) or isinstance(handler, logging.handlers.TimedRotatingFileHandler):
+        for handler in logger.handlers[:]:
+            if isinstance(handler, (logging.FileHandler, logging.handlers.TimedRotatingFileHandler)):
                 logger.removeHandler(handler)
                 handler.close()
-    
+
     log_filename = datetime.now().strftime("%Y-%m-%d")
-    file_handler = logging.handlers.TimedRotatingFileHandler(f'./data/log/{log_filename}.log', when="midnight", backupCount=10)
-    file_handler.setFormatter(logging.Formatter('[ %(asctime)s ] %(levelname)s : %(message)s'))
-    
+    fmt = logging.Formatter('[ %(asctime)s ] %(levelname)s : %(message)s')
+
+    file_handler = logging.handlers.TimedRotatingFileHandler(
+        f'./data/log/{log_filename}.log', when="midnight", backupCount=10
+    )
+    file_handler.setFormatter(fmt)
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(fmt)
+
     logger.setLevel(logging.INFO)
     logger.addHandler(file_handler)
-    
+    logger.addHandler(stream_handler)
+
     return logger
