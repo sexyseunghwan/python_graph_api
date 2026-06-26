@@ -4,6 +4,7 @@ Create date : 2023-05-01
 Description : Code that can perform various functions through Telegram
 
 History     : 2026-06-16 Seunghwan Shin       # [v.1.0.0] first create
+              2026-06-26 Seunghwan Shin       # [v.1.1.0] Add an API to generate charts for stock-related assets
 """
 
 import os

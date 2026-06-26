@@ -6,6 +6,7 @@ from flask import request, jsonify, send_file
 from config import logger
 from models.assets import Assets, AssetResp
 from models.consume import ConsumeInfo
+from models.stock_pie_data import StockPieData
 from utils.matplot_util import (
     visualize_consume_res_by_category,
     draw_line_graph_single,
@@ -110,6 +111,24 @@ def asset_pie_image_response():
     )
     return _send_png(image_buffer, 'asset_pie.png')
 
+def stock_pie_image_response():
+    try:
+        data = _get_json_object()
+        stocks = _to_stocks(data)
+    except ValueError as e:
+        return _bad_request(str(e))
+
+    if not stocks.stock_names:
+        return jsonify({'message': 'No stock data to visualize.'}), 200
+
+    image_buffer = BytesIO()
+    draw_asset_pie_graph(
+        list(stocks.stock_names),
+        [float(amount) for amount in stocks.stock_amount_krw],
+        stocks.total_stock_amount_krw,
+        image_buffer,
+    )
+    return _send_png(image_buffer, 'stock_pie.png')
 
 def _bad_request(message: str):
     return jsonify({'error': message}), 400
@@ -188,6 +207,33 @@ def _to_assets(data: dict) -> Assets:
     return Assets(
         total_asset_amount_krw=_to_decimal(data["total_asset_amount_krw"], "total_asset_amount_krw"),
         asset_map=_to_asset_resp_map(asset_map),
+    )
+
+def _to_stocks(data: dict) -> StockPieData:
+    stock_data = data.get("stock_pie_data", data)
+    if not isinstance(stock_data, dict):
+        raise ValueError("Field stock_pie_data must be a JSON object.")
+
+    stock_names = _get_required_field(stock_data, "stock_names")
+    total_stock_amount_krw = _get_required_field(stock_data, "total_stock_amount_krw")
+    stock_amount_krw = _get_required_field(stock_data, "stock_amount_krw")
+
+    if not isinstance(stock_names, list):
+        raise ValueError("Field stock_names must be a JSON array.")
+
+    if not isinstance(stock_amount_krw, list):
+        raise ValueError("Field stock_amount_krw must be a JSON array.")
+    
+    if len(stock_names) != len(stock_amount_krw):
+        raise ValueError("Fields stock_names and stock_weights must have the same length.")
+
+    return StockPieData(
+        total_stock_amount_krw=_to_decimal(total_stock_amount_krw, "total_stock_amount_krw"),
+        stock_names=stock_names,
+        stock_amount_krw=[
+            _to_decimal(stock_amount_krw, f"stock_amount_krw[{idx}]")
+            for idx, stock_amount_krw in enumerate(stock_amount_krw)
+        ],
     )
 
 

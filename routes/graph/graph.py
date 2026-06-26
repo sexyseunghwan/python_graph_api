@@ -5,6 +5,7 @@ from routes.graph.graph_service import (
     category_image_response,
     consume_detail_response,
     asset_pie_image_response,
+    stock_pie_image_response
 )
 
 graph_bp = Blueprint('graph', __name__)
@@ -24,3 +25,7 @@ def consume_detail_app():
 @graph_bp.route('/api/asset_pie_image_app', methods=['POST'])
 def asset_pie_image_app():
     return asset_pie_image_response()
+
+@graph_bp.route('/api/stock_pie_image', methods=['POST'])
+def asset_stock_image_app():
+    return stock_pie_image_response()
